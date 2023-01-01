@@ -26,14 +26,14 @@ bpe_tokenizer.py: implement dynamic programming + trie for much faster encoding.
 bpe-create-vocab.ipynb: the notebook that calls bpe_construct.py to build up the vocab.
 
 ## Various Transformer
-The next challenge is to come up with something that is tolerable in terms of time. Simple vanilla implementation takes >1.5h for 1 epoch on GPU, which is too long. To reduce the computation cost, I 
+The next challenge is to come up with something that is tolerable in terms of time. Simple vanilla implementation takes >1.5h for 1 epoch on GPU, which is way too long. To reduce the computation cost, I 
 
 1) limit the lengths of story/summary: max_len1=1024, max_len2=128
 2) implement the [FNet](https://arxiv.org/abs/2105.03824) for the encoder
 3) the output of the encoder, called context in my code, is the same across all decoder layers. i.e. save the WQ, WK calculation
 4) tested the [Performer](https://arxiv.org/abs/2009.14794), but due to short lengths, not quite useful.
 
-This significantly reduces the training time down to ~10min/epoch.
+These steps significantly reduce the training time down to ~10min/epoch.
 
 Main codes:
 fft_attention.py: FNet attention
